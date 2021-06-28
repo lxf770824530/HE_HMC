@@ -6,6 +6,11 @@ import os
 import random
 
 
+
+
+
+
+
 def text_cleaner(text):
     text = text.replace(".", "")
     text = text.replace("[", " ")
@@ -37,7 +42,7 @@ def text_cleaner(text):
 
 
 def get_allwords():
-    data_path = "../DATA/WOS46985/X.txt"                                        #修改路径
+    data_path = r"G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/X.txt"                                        #修改路径
     data_X=[]
     with open(data_path,encoding='utf-8') as f:
         f=f.readlines()
@@ -101,12 +106,12 @@ def data_split_save_no_aug():
     Y1, Y2 = getlabels()
     print('leny:',len(Y1))
     print("save word embedding matrix ...")
-    emb_filename = os.path.join('../DATA/WOS46985/', "emb_matrix_glove_300")           #修改路径
+    emb_filename = os.path.join(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label', "emb_matrix_glove_300")           #修改路径
     # emb_matrix.dump(emb_filename)
     pl.dump([emb_matrix, word2index, index2word], open(emb_filename, "wb"))
 
 def get_X_index():
-    data_path = "../DATA/WOS46985/X.txt"                                            #修改路径--------------------------
+    data_path = r"G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/X.txt"                                            #修改路径--------------------------
     data_X=[]
     with open(data_path,encoding='utf-8') as f:
         f=f.readlines()
@@ -132,9 +137,9 @@ def sent2index(sent, word2index,max_len):
 
 
 def getlabels():
-    path='../DATA/WOS46985'                                                     #修改路径-------------------
-    y1_path='YL1.txt'
-    y2_path='Y.txt'
+    path=r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label'                                                     #修改路径-------------------
+    y1_path='Y1.txt'
+    y2_path='Y2.txt'
     # y3_path='Y3.txt'
     y1_path_=os.path.join(path,y1_path)
     y2_path_=os.path.join(path,y2_path)
@@ -145,6 +150,7 @@ def getlabels():
     with open(y2_path_) as f:
         y2=f.readlines()
     y2=np.array([(int)(x.strip()) for x in y2])
+
     # with open(y3_path_) as f:
     #     y3=f.readlines()
     # y3=np.array([(int)(x.strip()) for x in y3])                                 #3层
@@ -154,7 +160,7 @@ def getlabels():
 def data_split():
     max_len = 300
     # embedding_model = Word2Vec.load("../data/model")
-    emb_matrix, word2index, index2word = pl.load(open('../DATA/WOS46985/emb_matrix_glove_300','rb'))      #修改路径-------------------
+    emb_matrix, word2index, index2word = pl.load(open(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/emb_matrix_glove_300','rb'))      #修改路径-------------------
 
     X = get_X_index()
     X_txt=[]
@@ -165,10 +171,15 @@ def data_split():
         X_len.append(l)
     # Y1,Y2,Y3 = getlabels()
     Y1,Y2 = getlabels()                                                                                  #3层需要修改
+
+
+
     # print("save word embedding matrix ...")
     # emb_filename = os.path.join('../data/', "emb_matrix_glove_300")
     # emb_matrix.dump(emb_filename)
     # pl.dump([emb_matrix, word2index, index2word], open(emb_filename, "wb"))
+
+
     random.seed(2021)
     index=[i for i in range(len(Y2))]
     random.shuffle(index)
@@ -190,11 +201,11 @@ def data_split():
     train_y1=Y1[:train]
     test_y1=Y1[train:]
 
-    # pl.dump([train_txt,train_y1,train_y2,train_y3],open('../DATA/patent11072/train_txt-len-y_300_pad0_glove','wb'))        #3层  修改路径-------------
-    # pl.dump([test_txt,test_y1,test_y2,test_y3],open('../DATA/patent11072/test_txt-len-y_300_pad0_glove','wb'))
+    # pl.dump([train_txt,train_y1,train_y2,train_y3],open('G:\HTMC-2\DATA\processed_data\webservice\data/train_txt-len-y_300_pad0_glove','wb'))        #3层  修改路径-------------
+    # pl.dump([test_txt,test_y1,test_y2,test_y3],open('G:\HTMC-2\DATA\processed_data\webservice\data/test_txt-len-y_300_pad0_glove','wb'))
 
-    pl.dump([train_txt,train_y1,train_y2],open('../DATA/WOS46985/train_txt-len-y_300_pad0_glove','wb'))        #2层   修改路径-------------
-    pl.dump([test_txt,test_y1,test_y2],open('../DATA/WOS46985/test_txt-len-y_300_pad0_glove','wb'))
+    pl.dump([train_txt,train_y1,train_y2],open(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/train_txt-len-y_300_pad0_glove','wb'))        #2层   修改路径-------------
+    pl.dump([test_txt,test_y1,test_y2],open(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/test_txt-len-y_300_pad0_glove','wb'))
 
 
 

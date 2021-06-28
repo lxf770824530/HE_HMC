@@ -1,4 +1,5 @@
 #对类别标签的文本做词嵌入对应，即  类别文本——>300向量
+#是用每一层的类别，并非每一个样的类别，如：webservice第一层的9个类别的类别标签，共9个
 
 import pickle as pl
 import numpy as np
@@ -12,7 +13,7 @@ for line in glove:
     vector = np.asarray(line[1:], dtype='float32')
     embeddings[word] = vector
 #
-list= np.zeros((7, 300),dtype=np.float32)                            #70：类别标签的个数   300：向量维度
+list= np.zeros((14, 300),dtype=np.float32)                            #70：类别标签的个数   300：向量维度    需要修改！！！！！！！！
 # list[0]=embeddings['event']
 # list[1]=embeddings['concept']
 # list[2]=embeddings['sport']
@@ -35,12 +36,12 @@ def compute_embeddings(label):
     print(emb)
     return emb
 
-with open('../DATA/WOS46985/label1.txt',encoding='utf-8') as f:                                 #修改路径
+with open(r'G:\HTMC-2\DATA\processed_data\bestbuy/label_1.txt',encoding='utf-8') as f:    #修改路径
     f=f.readlines()
 for i,label in enumerate(f):
     list[i]=compute_embeddings(label)
 print(list.shape)
-pl.dump(list,open('../DATA/WOS46985/label_1_vector','wb'))
+pl.dump(list,open(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/label_1_vector','wb'))
 
 
 

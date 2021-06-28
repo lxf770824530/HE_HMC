@@ -48,7 +48,7 @@ def plot_embeddings(embeddings,):
 
 
 if __name__ == "__main__":
-    G = nx.read_edgelist('../data/dbpedia/ge_label2-3.txt',
+    G = nx.read_edgelist(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/label1_2.txt',      #图结构输入路径，样例见   CODE/graphembedding/data/flight
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
 
     model = SDNE(G, hidden_size=[256, 300],)
@@ -65,11 +65,12 @@ if __name__ == "__main__":
     label = []
     emb = []
     # label, emb=pl.load(open('../data/WOS5736/wos5736_label1-2','rb'))
-    for i in range(219):
+    for i in range(76):                                                                                            #change class number
         label.append(i)
         emb.append(embeddings[str(i)])
     # print(emb)
     print(label)
     print(len(emb))
-    pl.dump([label,emb],open('../data/dbpedia/dbpedia_label2-3','wb'))    #label,emb 保存各个标签的图嵌入向量
+    print(emb)
+    pl.dump([label,emb],open(r'G:\HTMC-2\DATA\processed_data\bestbuy\bestbuy_digital_label/ge_label1_2','wb'))    #label,emb 保存各个标签的图嵌入向量 输出路径
 
