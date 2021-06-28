@@ -99,7 +99,7 @@ if __name__ == '__main__':
     for train_i, test_i in kfold_s:
         data_i_list.append([train_i,test_i])
 
-    pl.dump(data_i_list, open(r'C:\Users\E1106-0\Desktop\qqqq\kfold_kaggle', 'wb'))
+    pl.dump(data_i_list, open(r'C:\Users\E1106-0\Desktop\qqqq\kfold_kaggle', 'wb'))               #save k-fold division result
     ks=pl.load(open(r'C:\Users\E1106-0\Desktop\qqqq\kfold_kaggle', 'rb'))
     for train, test in ks:
 
